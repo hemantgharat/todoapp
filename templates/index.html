@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        .field {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            height: 70px; 
+        }
+
+        .list_field {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            /* height: 100px;  */
+        }
+
+        .input-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-container input[type="text"] {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+        }
+
+        .input-container button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Style the plus (+) icon */
+        .input-container button::before {
+            content: "+";
+            font-size: 18px;
+        }
+
+        .left-section {
+            flex: 1;
+        }
+
+        .right-section {
+            display: flex;
+            gap: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body style="background-color: rgb(94, 145, 202);">
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">To Do App</h1>
+
+        <form class="ui form" action="/add" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <div class="input-container">
+                    <input type="text" name="title" placeholder="Add New Todo...">
+                    <button class="ui blue button" type="submit"></button>
+                </div>
+            </div>
+        </form>
+
+        <hr>
+
+        {% for todo in list %}
+        <div class="list_field">
+            <div class="left-section">
+                <p class="ui big header">{{ todo.id }} | {{ todo.title }}</p>
+        
+                {% if todo.complete == False %}
+                <span class="ui gray label">Not Complete</span>
+                {% else %}
+                <span class="ui green label">Completed</span>
+                {% endif %}
+            </div>
+        
+            <div class="right-section">
+                <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
+                <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+                {% if todo.complete == False %}
+                <h5 id="time">Created at {{todo.created_at}}</h5>
+                {% else %}
+                <h5 id="time">Updated at {{todo.updated_at}}</h5>
+                {% endif %}
+            </div>
+        </div>               
+        {% endfor %}
+    </div>
+</body>
+
+</html>
