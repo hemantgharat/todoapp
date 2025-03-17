@@ -13,7 +13,7 @@ A simple **Django-based To-Do application** that allows users to add, update, an
 ## Installation & Setup ⚙️
 
 ### 1️⃣ Clone the Repository
-git clone https://github.com/yourusername/todo-app.git
+git clone https://github.com/hemantgharat/todo-app.git
 cd todo-app
 
 ### 2️⃣ Create a Virtual Environment (Recommended)
